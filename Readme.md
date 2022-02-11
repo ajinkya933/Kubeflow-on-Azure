@@ -1,10 +1,8 @@
 
-+++
-title = "Install Kubeflow 1.4"
+
+## "Install Kubeflow 1.4"
 description = "Instructions for deploying Kubeflow 1.4 on Azure"
-weight = 4
-                    
-+++
+
 This guide describes how to use the kustomize to
 deploy Kubeflow on Azure.
 
