@@ -1,6 +1,8 @@
 
 
-## "Here we will go through Installation of Kubeflow 1.4 and Kubeflow 1.5 on Azure"
+## Steps to install Kubeflow 1.4 and Kubeflow 1.5 on Azure
+
+![kubeflow](https://user-images.githubusercontent.com/17012391/170826581-8a54fa64-8811-497a-818d-4f18fa0ad5d9.png)
 
 This guide describes how to use the kustomize to
 deploy Kubeflow on Azure.
