@@ -86,7 +86,7 @@ After creating resource group and AKS, run the following commands
 
 1. Run the following commands to set up and deploy Kubeflow. 
     ```
-    git clone https://github.com/kubeflow/manifests
+    git clone https://github.com/kubeflow/manifests.git
 
     cd manifests
 
