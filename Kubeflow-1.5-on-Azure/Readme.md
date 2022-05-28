@@ -1,6 +1,6 @@
 
 
-## "Install Kubeflow 1.4"
+## "Install Kubeflow 1.5"
 description = "Instructions for deploying Kubeflow 1.4 on Azure"
 
 This guide describes how to use the kustomize to
@@ -86,7 +86,7 @@ After creating resource group and AKS, run the following commands
 
 1. Run the following commands to set up and deploy Kubeflow. 
     ```
-    git clone https://github.com/kubeflow/manifests/tree/v1.4-branch
+    git clone https://github.com/kubeflow/manifests
 
     cd manifests
 
@@ -126,74 +126,8 @@ After creating resource group and AKS, run the following commands
      #        mode: DISABLE
     ```
 
-    Update Istio Gateway to expose port 443 with HTTPS and make port 80 redirect to 443:
-    ```
-    kubectl edit -n kubeflow gateways.networking.istio.io kubeflow-gateway
-    ```
-
-    The Gateway spec should look like the following:
-    ```
-    apiVersion: networking.istio.io/v1alpha3
-    kind: Gateway
-    metadata:
-        annotations: ..
-        creationTimeStamp: ..
-        generation: ..
-        name: ..
-        namespace: ..
-        uid: ..
-        resourceversion: ..
-        selflink: ..
-    spec:
-      selector:
-        istio: ingressgateway
-      servers:
-      - hosts:
-        - '*'
-        port:
-            name: http
-            number: 80
-            protocol: HTTP
-    ```
-    After this we append lines at the end of the Gateway spec. These lines begin with `tls` as shown. The final Gateway spec after appending lines should look as follows:
-
-    ```
-    apiVersion: networking.istio.io/v1alpha3
-    kind: Gateway
-    metadata:
-        annotations: ..
-        creationTimeStamp: ..
-        generation: ..
-        name: ..
-        namespace: ..
-        uid: ..
-        resourceversion: ..
-        selflink: ..
-    spec:
-      selector:
-        istio: ingressgateway
-      servers:
-      - hosts:
-        - '*'
-        port:
-            name: http
-            number: 80
-            protocol: HTTP
-        # Upgrade HTTP to HTTPS
-        tls:
-            httpsRedirect: true
-      - hosts:
-        - '*'
-        port:
-            name: https
-            number: 443
-            protocol: HTTPS
-        tls:
-            mode: SIMPLE
-            privateKey: /etc/istio/ingressgateway-certs/tls.key
-            serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
-    ```
-7. Expose load balancer
+  
+4. Expose load balancer
 
     To expose Kubeflow with a load balancer service, change the type of the istio-ingressgateway service to LoadBalancer.
     ```
@@ -204,6 +138,8 @@ After creating resource group and AKS, run the following commands
     ```
     kubectl get svc -n istio-system istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0]}'
     ```
+    Running it should return you with a response containing loadbalancer IP where Kubeflow is running.
+    
     create a self-signed certificate with cert-manager:
 
     `nano certificate.yaml`:
@@ -230,35 +166,9 @@ After creating resource group and AKS, run the following commands
     kubectl apply -f certificate.yaml -n istio-system
     ```
 
-7. Change container runtime from docker to pns
 
-    Open configmap `workflow-controller-configmap` in the `Kubeflow` namespace and change the `containerRuntimeExecutor` from `docker` to `pns`.
 
-8. Update argo access
-
-    Create and apply this file:
-    `nano argo-edit.yaml`
-
-    ```
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: ClusterRole
-    metadata:
-      labels:
-        rbac.authorization.kubeflow.org/aggregate-to-kubeflow-edit: "true"
-      name: kubeflow-argo-access
-    rules:
-      - apiGroups:
-          - argoproj.io
-        resources:
-          - 'workflows'
-        verbs:
-          - get
-    ```
-    
-
-    Apply it using `kubectl apply -f argo-edit.yaml`.
-
-9. Steps to open the Kubeflow Dashboard  
+5. Steps to open the Kubeflow Dashboard  
 
     Run the following command to get dashboard IP:
     ```
