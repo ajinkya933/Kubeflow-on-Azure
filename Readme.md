@@ -11,4 +11,4 @@ Navigate to folder: `Kubeflow-1.5-on-Azure` and `Kubeflow-1.4-on-Azure` for thei
 
 ## Join slack
 
-[Join slack channel]  (https://join.slack.com/t/ajinkya933/shared_invite/zt-1atx78b02-cOms1hSIojAlLhLbZ_HCXg)
+![Join slack channel]  (https://join.slack.com/t/ajinkya933/shared_invite/zt-1atx78b02-cOms1hSIojAlLhLbZ_HCXg)
