@@ -7,7 +7,7 @@ This guide describes how to use the kustomize to
 deploy Kubeflow on Azure.
 
 ## Prerequisites
-- Kubernetes (up to 1.21) , not compatible on k8s 1.22 
+- Kubernetes (up to 1.21), compatible on k8s 1.22 
 - Install [kustomize version 3.2.0](https://github.com/kubernetes-sigs/kustomize/releases/tag/v3.2.0) 
   - Check installed version ```kustomize version```
 - Install and configure the [Azure Command Line Interface (Az)](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
